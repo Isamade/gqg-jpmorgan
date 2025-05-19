@@ -78,3 +78,13 @@ TensorCircuit / Pennylane: Explore alternate frameworks with GPU acceleration.
 cProfile + line_profiler: To profile Python code and optimizer bottlenecks.
 
 
+Put in place the profiler: 
+
+For the portfolio optimization use case, the bottlenecks are typically in:
+
+File	Function	Role
+qokit/algorithms/qaoa/qaoa_optimizer.py	solve	Main optimization loop
+qokit/algorithms/qaoa/qaoa_optimizer.py	_run_qaoa	Core QAOA call per iteration
+qokit/algorithms/qaoa/qaoa_optimizer.py	_evaluate_cost	Quantum circuit execution & expectation calculation
+qokit/problems/portfolio/portfolio_qaoa.py	build_cost_operator, build_mixer_operator	Hamiltonian construction (scales with assets/qubits)
+
